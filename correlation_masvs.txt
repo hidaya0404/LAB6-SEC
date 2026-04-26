@@ -1,0 +1,66 @@
+Corrélation MASVS :
+-----------------
+
+Vulnérabilité : Fichiers contenant potentiellement des informations sensibles codées en dur
+Référence MASVS : MSTG-STORAGE-14
+Description : L'application ne doit pas contenir de données sensibles codées en dur comme des usernames, mots de passe, clés API ou tokens.
+Preuve : MobSF indique 'Files may contain hardcoded sensitive information like usernames, passwords, keys etc.' dans Security Analysis / Code Analysis.
+Impact : Un attaquant peut décompiler l'APK et récupérer des secrets directement depuis le code ou les fichiers de l'application.
+
+Vulnérabilité : L'application écrit des informations dans les logs
+Référence MASVS : MSTG-STORAGE-3
+Description : Les informations sensibles ne doivent jamais être écrites dans les logs de l'application.
+Preuve : MobSF indique 'The App logs information. Sensitive information should never be logged.'
+Impact : Des informations sensibles peuvent être récupérées avec Logcat, surtout sur un appareil rooté ou pendant une analyse dynamique.
+
+Vulnérabilité : Utilisation de MD5
+Référence MASVS : MSTG-CRYPTO-4
+Description : L'application ne doit pas utiliser d'algorithmes cryptographiques faibles ou obsolètes.
+Preuve : MobSF indique 'MD5 is a weak hash known to have hash collisions.'
+Impact : MD5 est vulnérable aux collisions et ne doit pas être utilisé pour l'intégrité, les signatures ou le stockage sécurisé.
+
+Vulnérabilité : Générateur de nombres aléatoires non sécurisé
+Référence MASVS : MSTG-CRYPTO-6
+Description : L'application doit utiliser un générateur aléatoire cryptographiquement sûr pour les valeurs sensibles.
+Preuve : MobSF indique 'The App uses an insecure Random Number Generator.'
+Impact : Des valeurs comme des tokens, clés ou identifiants peuvent devenir prédictibles si elles sont générées avec une source faible.
+
+Vulnérabilité : Utilisation de SHA-1
+Référence MASVS : MSTG-CRYPTO-4
+Description : L'application ne doit pas utiliser d'algorithmes de hachage faibles ou vulnérables aux collisions.
+Preuve : MobSF indique 'SHA-1 is a weak hash known to have hash collisions.'
+Impact : SHA-1 est obsolète pour les usages de sécurité comme les signatures, certificats ou contrôles d'intégrité forts.
+
+Vulnérabilité : Lecture/écriture possible sur le stockage externe
+Référence MASVS : MSTG-STORAGE-2
+Description : L'application ne doit pas stocker de données sensibles dans des emplacements accessibles par d'autres applications.
+Preuve : MobSF indique 'App can read/write to External Storage. Any App can read data written to External Storage.'
+Impact : Les données écrites dans le stockage externe peuvent être lues par d'autres applications ou récupérées par un attaquant.
+
+Synthèse des catégories MASVS impactées :
+----------------------------------------
+MASVS-STORAGE : secrets codés en dur, logs sensibles, stockage externe.
+MASVS-CRYPTO : MD5, SHA-1, générateur aléatoire non sécurisé.
+
+Tests MASTG complémentaires :
+---------------------------
+
+Test MASTG : Testing Logs for Sensitive Data
+Description brève : Vérifier si l'application écrit des informations sensibles dans les logs.
+Objectif : Utiliser adb logcat pendant l'exécution de l'application afin d'identifier des tokens, identifiants, mots de passe ou données personnelles dans les logs.
+
+Test MASTG : Testing Local Storage for Sensitive Data
+Description brève : Vérifier si l'application stocke des informations sensibles localement de manière non sécurisée.
+Objectif : Examiner les fichiers locaux, le stockage externe, les SharedPreferences, les bases SQLite et les ressources de l'APK.
+
+Test MASTG : Testing the Configuration of Cryptographic Standard Algorithms
+Description brève : Identifier les algorithmes cryptographiques utilisés dans le code.
+Objectif : Rechercher MD5, SHA-1, MessageDigest, Cipher ou Mac dans le code décompilé afin de confirmer l'utilisation d'algorithmes faibles.
+
+Test MASTG : Testing Random Number Generation
+Description brève : Vérifier si l'application utilise un générateur aléatoire sécurisé.
+Objectif : Rechercher java.util.Random, Math.random ou SecureRandom dans le code afin de vérifier si les valeurs sensibles sont générées correctement.
+
+Conclusion :
+------------
+L'analyse MobSF montre que les catégories les plus impactées sont MASVS-STORAGE et MASVS-CRYPTO. Les principales faiblesses concernent les secrets potentiellement codés en dur, les logs, le stockage externe, l'utilisation de MD5/SHA-1 et un générateur aléatoire non sécurisé. Ces vulnérabilités peuvent entraîner une fuite d'informations sensibles, faciliter le reverse engineering et affaiblir les mécanismes de sécurité de l'application.

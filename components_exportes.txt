@@ -1,0 +1,326 @@
+========================================
+        COMPOSANTS EXPORTÉS
+========================================
+
+Application : YouTube
+Package     : com.google.android.youtube
+
+Objectif :
+Identifier les composants Android déclarés avec android:exported="true"
+dans le fichier AndroidManifest.xml.
+
+Résumé :
+- Activities exportées      : 10
+- Activity-alias exportés   : 15
+- Services exportés         : 2
+- Receivers exportés        : 7
+- Providers exportés        : 0
+
+========================================
+1. ACTIVITIES EXPORTÉES
+========================================
+
+1) com.google.android.libraries.accountlinking.activity.AccountLinkingActivity
+   Type : Activity
+   exported : true
+   Intent-filter : Oui
+   Risque potentiel :
+   Cette activité gère des liens de type VIEW/BROWSABLE liés à l'authentification
+   ou à la redirection OAuth. Si les données reçues ne sont pas bien validées,
+   il peut exister un risque lié aux deep links ou aux redirections malveillantes.
+
+2) com.google.android.apps.youtube.app.application.Shell_UrlActivity
+   Type : Activity
+   exported : true
+   Intent-filter : Non visible directement sur cette ligne
+   Risque potentiel :
+   Cette activité semble liée à l'ouverture des URLs YouTube. Une application
+   externe pourrait tenter de l'appeler si elle n'est pas correctement protégée.
+
+3) com.google.android.apps.youtube.app.application.Shell_ResultsActivity
+   Type : Activity
+   exported : true
+   Intent-filter : Non visible directement sur cette ligne
+   Risque potentiel :
+   Cette activité est liée aux résultats ou à la recherche. Le risque dépend de
+   la validation des données reçues.
+
+4) com.google.android.apps.youtube.app.application.Shell_MediaSearchActivity
+   Type : Activity
+   exported : true
+   Intent-filter : Oui
+   Risque potentiel :
+   Elle accepte l'action android.media.action.MEDIA_PLAY_FROM_SEARCH. Une autre
+   application peut déclencher une recherche média si les entrées sont acceptées.
+
+5) com.google.android.apps.youtube.app.application.Shell_UploadActivity
+   Type : Activity
+   exported : true
+   Intent-filter : Oui
+   Risque potentiel :
+   Cette activité gère l'upload ou le partage de vidéos. Elle doit vérifier les
+   fichiers reçus afin d'éviter les abus ou les entrées malveillantes.
+
+6) com.google.android.apps.youtube.app.application.Shell_MultipleUploadsActivity
+   Type : Activity
+   exported : true
+   Intent-filter : Oui
+   Risque potentiel :
+   Elle gère l'envoi multiple de vidéos. Risque potentiel si plusieurs fichiers
+   externes sont reçus sans validation suffisante.
+
+7) com.google.android.apps.youtube.app.application.Shell_LiveCreationActivity
+   Type : Activity
+   exported : true
+   Intent-filter : Oui
+   Risque potentiel :
+   Cette activité est liée à la création de live stream. Elle doit contrôler les
+   intents reçus pour éviter un accès non autorisé à une fonctionnalité sensible.
+
+8) com.google.android.apps.youtube.app.application.Shell_SettingsActivity
+   Type : Activity
+   exported : true
+   Intent-filter : Oui
+   Risque potentiel :
+   Cette activité est liée aux paramètres/notifications. Risque faible à moyen,
+   selon les données modifiables depuis cette activité.
+
+9) com.google.android.libraries.social.licenses.LicenseMenuActivity
+   Type : Activity
+   exported : true
+   Intent-filter : Non visible directement
+   Risque potentiel :
+   Activité probablement destinée à afficher les licences open source. Risque
+   généralement faible.
+
+10) com.google.cardboard.sdk.HeadsetDetectionActivity
+    Type : Activity
+    exported : true
+    Intent-filter : Oui
+    Risque potentiel :
+    Cette activité réagit à des intents NFC liés à Cardboard. Le risque dépend
+    de la validation des données NFC reçues.
+
+========================================
+2. ACTIVITY-ALIAS EXPORTÉS
+========================================
+
+1) com.google.android.apps.youtube.app.application.Shell$UrlActivity
+   Type : Activity-alias
+   exported : true
+   TargetActivity : Shell_UrlActivity
+   Risque potentiel :
+   Alias exporté permettant d'accéder à une activité liée aux URLs.
+
+2) com.google.android.youtube.UrlActivity
+   Type : Activity-alias
+   exported : true
+   TargetActivity : Shell_UrlActivity
+   Intent-filter : Oui
+   Risque potentiel :
+   Gère les liens http/https vers youtube.com, m.youtube.com, youtu.be et
+   studio.youtube.com. Risque lié aux deep links si les URLs ne sont pas validées.
+
+3) com.google.android.apps.youtube.app.application.Shell$ResultsActivity
+   Type : Activity-alias
+   exported : true
+   TargetActivity : Shell_ResultsActivity
+   Intent-filter : Oui
+   Risque potentiel :
+   Gère les actions SEARCH et MEDIA_SEARCH. Risque lié à la recherche externe.
+
+4) com.google.android.apps.youtube.app.application.Shell$MediaSearchActivity
+   Type : Activity-alias
+   exported : true
+   TargetActivity : Shell_MediaSearchActivity
+   Risque potentiel :
+   Accès indirect à une activité de recherche média.
+
+5) com.google.android.youtube.UploadIntentHandlingActivity
+   Type : Activity-alias
+   exported : true
+   TargetActivity : Shell_UploadActivity
+   Risque potentiel :
+   Alias lié à l'upload de contenu vidéo. Nécessite une validation stricte des fichiers.
+
+6) com.google.android.apps.youtube.app.application.Shell$UploadActivity
+   Type : Activity-alias
+   exported : true
+   TargetActivity : Shell_UploadActivity
+   Risque potentiel :
+   Accès indirect à l'activité d'upload.
+
+7) com.google.android.apps.youtube.app.application.Shell$LiveCreationActivity
+   Type : Activity-alias
+   exported : true
+   TargetActivity : Shell_LiveCreationActivity
+   Risque potentiel :
+   Accès indirect à la fonctionnalité de création de live.
+
+8) com.google.android.apps.youtube.app.application.Shell$SettingsActivity
+   Type : Activity-alias
+   exported : true
+   TargetActivity : Shell_SettingsActivity
+   Risque potentiel :
+   Accès indirect aux paramètres.
+
+9) com.google.android.youtube.ManageNetworkUsageActivity
+   Type : Activity-alias
+   exported : true
+   TargetActivity : Shell_SettingsActivity
+   Intent-filter : Oui
+   Risque potentiel :
+   Activité liée à la gestion de l'utilisation réseau. Risque faible à moyen.
+
+10) com.google.android.apps.youtube.app.application.Shell_HomeActivity
+    Type : Activity-alias
+    exported : true
+    TargetActivity : MainActivity
+    Risque potentiel :
+    Accès à l'écran principal de l'application.
+
+11) com.google.android.youtube.HomeActivity
+    Type : Activity-alias
+    exported : true
+    TargetActivity : MainActivity
+    Risque potentiel :
+    Accès à l'écran principal de l'application.
+
+12) com.google.android.youtube.app.application.Shell$HomeActivity
+    Type : Activity-alias
+    exported : true
+    TargetActivity : MainActivity
+    Risque potentiel :
+    Accès à l'écran principal de l'application.
+
+13) com.google.android.youtube.app.honeycomb.Shell$HomeActivity
+    Type : Activity-alias
+    exported : true
+    TargetActivity : MainActivity
+    Intent-filter : Oui
+    Risque potentiel :
+    Contient l'action MAIN et la catégorie LAUNCHER. Ce composant sert au lancement
+    normal de l'application. Risque généralement attendu et contrôlé.
+
+14) com.google.android.apps.youtube.app.watchwhile.WatchWhileActivity
+    Type : Activity-alias
+    exported : true
+    TargetActivity : MainActivity
+    Intent-filter : Oui
+    Risque potentiel :
+    Gère des actions comme SEARCH et VIEW_APP_USAGE. Risque lié aux intents externes.
+
+15) com.google.android.apps.youtube.app.WatchWhileActivity
+    Type : Activity-alias
+    exported : true
+    TargetActivity : MainActivity
+    Risque potentiel :
+    Alias exporté vers l'activité principale.
+
+========================================
+3. SERVICES EXPORTÉS
+========================================
+
+1) com.google.android.apps.youtube.app.extensions.mediabrowser.impl.MainAppMediaBrowserService
+   Type : Service
+   exported : true
+   Intent-filter : Oui
+   Action : android.media.browse.MediaBrowserService
+   Risque potentiel :
+   Ce service peut être utilisé pour l'intégration média. Il doit contrôler les
+   clients autorisés afin d'éviter une interaction non souhaitée.
+
+2) androidx.work.impl.background.systemjob.SystemJobService
+   Type : Service
+   exported : true
+   Permission : android.permission.BIND_JOB_SERVICE
+   Risque potentiel :
+   Le risque est réduit car le service est protégé par la permission système
+   BIND_JOB_SERVICE.
+
+========================================
+4. RECEIVERS EXPORTÉS
+========================================
+
+1) com.google.android.libraries.youtube.player.ui.mediasession.MediaButtonIntentReceiverProvider$DefaultMediaButtonIntentReceiver
+   Type : Receiver
+   exported : true
+   Intent-filter : Oui
+   Action : android.intent.action.MEDIA_BUTTON
+   Risque potentiel :
+   Reçoit les commandes média. Risque faible à moyen si les commandes externes
+   ne sont pas correctement contrôlées.
+
+2) com.google.android.libraries.phenotype.client.stable.AccountRemovedBroadcastReceiver
+   Type : Receiver
+   exported : true
+   Intent-filter : Oui
+   Action : android.accounts.action.ACCOUNT_REMOVED
+   Risque potentiel :
+   Reçoit des événements liés aux comptes. Doit vérifier la source des broadcasts.
+
+3) com.google.android.libraries.phenotype.client.stable.PhenotypeUpdateBackgroundBroadcastReceiver
+   Type : Receiver
+   exported : true
+   Permission : com.google.android.gms.permission.PHENOTYPE_UPDATE_BROADCAST
+   Risque potentiel :
+   Le risque est réduit par la permission déclarée.
+
+4) com.google.android.libraries.youtube.account.service.AccountsChangedReceiver
+   Type : Receiver
+   exported : true
+   Intent-filter : Oui
+   Action : android.accounts.LOGIN_ACCOUNTS_CHANGED
+   Risque potentiel :
+   Reçoit les changements de comptes. Risque moyen si les événements ne sont pas
+   bien filtrés.
+
+5) com.google.android.libraries.youtube.common.locale.LocaleChangedBroadcastReceiver
+   Type : Receiver
+   exported : true
+   Intent-filter : Oui
+   Action : android.intent.action.LOCALE_CHANGED
+   Risque potentiel :
+   Réagit au changement de langue du système. Risque généralement faible.
+
+6) com.google.firebase.iid.FirebaseInstanceIdReceiver
+   Type : Receiver
+   exported : true
+   Permission : com.google.android.c2dm.permission.SEND
+   Intent-filter : Oui
+   Action : com.google.android.c2dm.intent.RECEIVE
+   Risque potentiel :
+   Utilisé pour Firebase Cloud Messaging. Le risque est réduit par la permission.
+
+7) androidx.work.impl.diagnostics.DiagnosticsReceiver
+   Type : Receiver
+   exported : true
+   Permission : android.permission.DUMP
+   Intent-filter : Oui
+   Action : androidx.work.diagnostics.REQUEST_DIAGNOSTICS
+   Risque potentiel :
+   Le risque est réduit car il nécessite la permission android.permission.DUMP.
+
+========================================
+5. PROVIDERS EXPORTÉS
+========================================
+
+Aucun provider avec android:exported="true" n'a été identifié dans le manifeste analysé.
+
+========================================
+6. CONCLUSION
+========================================
+
+L'analyse du manifeste montre que l'application contient plusieurs composants
+exportés. La majorité sont des activities et des activity-alias utilisés pour
+ouvrir des liens YouTube, gérer la recherche, le partage, l'upload, les paramètres
+et le lancement de l'application.
+
+Les risques principaux concernent les composants exportés avec des intent-filters,
+notamment ceux qui utilisent VIEW, BROWSABLE, SEND, SEARCH ou MEDIA_SEARCH.
+Ces composants peuvent être appelés par d'autres applications. Ils doivent donc
+valider correctement les données reçues et empêcher tout accès non autorisé à des
+fonctionnalités sensibles.
+
+Certains services et receivers exportés sont protégés par des permissions système
+ou Google, ce qui réduit le risque.

@@ -1,0 +1,52 @@
+==============================
+      APP INFORMATION
+==============================
+
+App Name        : YouTube
+Package Name    : com.google.android.youtube
+Main Activity   : com.google.android.apps.youtube.app.application.Shell_SettingsActivity
+
+Version Name    : 21.14.484
+Version Code    : 1561065532
+
+Target SDK      : 36
+Minimum SDK     : 32
+Maximum SDK     : Non indiqué
+
+==============================
+      FILE INFORMATION
+==============================
+
+File Name       : YouTube.apk
+Size            : 54.23 MB
+
+MD5             : 1a6e5de66543a557cc58a29d91ea0d55
+SHA1            : f47fcc6ede82a5f3a4320caee99b3221e3fa91da
+SHA256          : 6f59e54bfd7458de65ebf2ed984511a5d24e7e49bcf0d3dbc548d61991d43f71
+
+==============================
+      SECURITY INFORMATION
+==============================
+
+Security Score  : 52/100
+Trackers        : 1/432
+
+Debuggable      : À vérifier dans AndroidManifest.xml
+Allow Backup    : À vérifier dans AndroidManifest.xml
+
+==============================
+      COMMENTAIRE
+==============================
+
+L'analyse statique avec MobSF permet d'extraire les informations
+principales de l'application Android, notamment le nom du package,
+la version, les SDK utilisés, la taille du fichier APK et les empreintes
+cryptographiques du fichier.
+
+Le Target SDK 36 indique que l'application cible une version récente
+d'Android. Le Minimum SDK 32 signifie que l'application nécessite au
+minimum Android 12L pour fonctionner.
+
+Les champs debuggable et allowBackup doivent être vérifiés dans le
+fichier AndroidManifest.xml, car ils peuvent avoir un impact important
+sur la sécurité de l'application.

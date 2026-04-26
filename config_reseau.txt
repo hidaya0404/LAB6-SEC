@@ -1,0 +1,5 @@
+Configuration réseau :
+-------------------
+usesCleartextTraffic : activé
+Risque: l'application autorise le trafic en clair (HTTP)
+Impact: interception possible des données (attaque MITM)
