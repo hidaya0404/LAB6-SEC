@@ -1,1 +1,1 @@
-# Ce repo contient tous les infos extraites depuis mobSF depuis un apk de YouTube.
+# Ce repo contient tous les infos extraites depuis mobSF sur un apk de YouTube.
